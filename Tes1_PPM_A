@@ -1,0 +1,393 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel=stylesheet href=jmobile/jquery.mobile-1.4.5.css />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src=jmobile/jquery.mobile-1.4.5.js></script>
+	<link rel="stylesheet" href="jquery.ui.datepicker.mobile.css" /> 
+	<style type="text/css">
+/* Basic styles */
+.rwd-example .ui-body {
+    text-align: left;
+    border-color: #ddd;
+}
+.rwd-example p {
+    color: #777;
+    line-height: 140%
+}
+/* Stack all blocks to start */
+.rwd-example .ui-block-a,
+.rwd-example .ui-block-b,
+.rwd-example .ui-block-c {
+    width: 100%;
+    float: none;
+}
+/* Collapsing borders */
+.rwd-example > div + div .ui-body {
+    border-top-width: 0;
+}
+/* 1st breakpoint - Float B and C, leave A full width on top */
+@media all and (min-width: 42em) {
+    .rwd-example {
+        overflow: hidden; /* Use this or a "clearfix" to give the container height */
+    }
+    .rwd-example .ui-body {
+       min-height: 14em;
+    }
+    .rwd-example .ui-block-b,
+    .rwd-example .ui-block-c {
+      float: left;
+      width: 49.95%;
+    }
+    .rwd-example .ui-block-b p,
+    .rwd-example .ui-block-c p {
+      font-size: .8em;
+    }
+    .rwd-example > div + div .ui-body {
+        border-top-width: 1px;
+    }
+    .rwd-example > div:first-child .ui-body {
+        border-bottom-width: 0;
+    }
+    .rwd-example > div:last-child .ui-body {
+        border-left-width: 0;
+    }
+}
+/* 2nd breakpoint - Float all, 50/25/25 */
+@media all and (min-width: 55em) {
+    .rwd-example .ui-body {
+       min-height: 18em;
+    }
+    .rwd-example .ui-block-a,
+    .rwd-example .ui-block-c {
+      float: left;
+      width: 49.95%;
+    }
+    .rwd-example .ui-block-b,
+    .rwd-example .ui-block-c {
+      float: left;
+      width: 24.925%;
+    }
+    .rwd-example > div:first-child .ui-body {
+        border-bottom-width: 1px;
+    }
+    .rwd-example > div + div .ui-body {
+        border-left-width: 0;
+    }
+}
+/* 3rd breakpoint - Bump up font size at very wide screens */
+@media all and (min-width: 75em) {
+    .rwd-example .ui-body {
+      font-size: 125%;
+    }
+    .rwd-example .ui-block-a,
+    .rwd-example .ui-block-c {
+      float: left;
+      width: 49.95%;
+    }
+    .rwd-example .ui-block-b,
+    .rwd-example .ui-block-c {
+      float: left;
+      width: 24.925%;
+    }
+}
+
+	</style>
+
+	<!-- SCRIPT NOMER 1 -->
+	<script>
+	    function hitung(){
+	    	$hasil = 1;
+	        document.getElementById("hasil_pangkat").innerHTML = Math.pow(document.getElementById('num').value, document.getElementById('pangkat').value);
+	        document.getElementById("hasil_faktorial").value = 1
+    		for (i = 1; i <= document.getElementById("num").value; i++) {
+    			$hasil *= i;
+   			};
+   			document.getElementById("hasil_faktorial").innerHTML = $hasil;         	
+	    }    	
+	</script>
+
+	<!-- SCIPT NOMER 2 -->
+	<script>
+		function hexToRgba(hex) {
+		    var bigint, r, g, b, a;
+		    var re = /^#?/;
+		    var aRgb = hex.replace(re, '');
+		    if (aRgb.length == 3) {
+		        bigint = parseInt(aRgb, 16);
+		        r = (bigint >> 4) & 255;
+		        g = (bigint >> 2) & 255;
+		        b = bigint & 255;
+		        return "rgba(" + r + "," + g + "," + b + ")";
+		    }
+		    if (aRgb.length == 6) {
+		        bigint = parseInt(aRgb, 16);
+		        r = (bigint >> 16) & 255;
+		        g = (bigint >> 8) & 255;
+		        b = bigint & 255;
+		        return "rgba(" + r + "," + g + "," + b + ")";
+		    }
+		    if (aRgb.length == 8) {
+		        bigint = parseInt(aRgb, 16);
+		        a = ((bigint >> 24) & 255) / 255;
+		        r = (bigint >> 16) & 255;
+		        g = (bigint >> 8) & 255;
+		        b = bigint & 255;
+		        return "rgba(" + r + "," + g + "," + b + "," + a.toFixed(1) + ")";
+			}
+
+		}
+
+		$('#hexinput').on('input', function () {
+		    $('#results').text(hexToRgba($('#hexinput').val()));
+		});
+		$('#myTextbox1').on('input', function () {
+		    alert('Text1 changed!');
+		});
+
+	</script>
+
+</head>
+<body>
+
+    <div data-role="page" data-theme="a" id="pg1">
+        <div data-role="header" data-position="inline">
+            <h1>Page 1</h1>
+        </div>
+
+		<div class="ui-field-contain">
+		    <label for="select-custom-1"></label>
+		    <select name="select-custom-1" id="select-custom-1" data-native-menu="false" >
+		        <option value="#pg1" selected="selected">Page 1</option>
+		        <option value="#pg2">Page 2</option>
+		        <option value="#pg3">Page 3</option>
+		    </select>
+		    <script>
+			    $(function(){
+			      // bind change event to select
+			      $('#select-custom-1').bind('change', function () {
+			          var url = $(this).val(); // get selected value
+			          if (url) { // require a URL
+			              $.mobile.changePage( url, { transition: "slide", changeHash: false });
+			          }
+			          return false;
+			      });
+			    });
+			</script>
+		</div>
+        <div data-role="content" data-theme="a" > 
+	      	<div class="panel">
+	      		<label for="slider-step">Input slider:</label>
+				<input type="range" name="slider-step" id="slider-step" value="0" min="0" max="100" step="1" />
+		        <p>Input number: </p>
+		        <input type="text" id="num">
+		        <p>Input pangkat: </p>
+		        <input type="text" id="pangkat">
+		        <p>Hasil pangkat: </p>
+		        <div id="hasil_pangkat"><br></div>
+		        <p>Hasil faktorial: </p>
+		        <div id="hasil_faktorial"><br></div>
+		        <a href="#popupBasic" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">Popup</a>
+				<div data-role="popup" id="popupBasic">
+					<p>Coba-coba</p>
+				</div>
+		        <button onclick="hitung()">Hitung</button>   
+	        </div> 
+        </div>
+    </div>
+
+
+    <div data-role="page" data-theme="a" id="pg2">
+        <div data-role="header" data-position="inline">
+            <h1>Page 2</h1>
+        </div>
+		<div class="ui-field-contain">
+		    <label for="select-custom-2"></label>
+		    <select name="select-custom-2" id="select-custom-2" data-native-menu="false">
+		        <option value="#pg1">Page 1</option>
+		        <option value="#pg2" selected="selected">Page 2</option>
+		        <option value="#pg3">Page 3</option>
+		    </select>
+		    <script>
+		    $(function(){
+		    // bind change event to select
+		        $('#select-custom-2').bind('change', function () {
+		        	var url = $(this).val(); // get selected value
+		         	if (url) { // require a URL
+		            	$.mobile.changePage( url, { transition: "slide", changeHash: false });
+		            }
+		            return false;
+		      	});
+		    });
+			</script>
+		</div>
+        <div data-role="content" data-theme="a">
+	        <p> Masukkan Hex Input : </p>
+	        <input id="hexinput" type='text' class="pickedColor" type="text" onkeyup="changeColor(this.className)">
+	        
+			<br>
+			<input class="elementToChange" style="height:50px; width:100%; border:1px solid black" type="text"></input>
+			<script>
+			    function changeColor(className){
+			    	document.getElementsByClassName("elementToChange")[0].style.background = document.getElementsByClassName(className)[0].value;
+			    }
+			</script>
+			<br>
+			<h1 id="results"></h1>
+        </div>
+    </div>
+   
+    <div data-role="page" data-theme="a" id="pg3">
+        <div data-role="header" data-position="inline">
+            <h1>Page 3</h1>
+        </div><!-- /header -->
+		<div class="ui-field-contain">
+		    <label for="select-custom-3"></label>
+		    <select name="select-custom-3" id="select-custom-3" data-native-menu="false">
+		        <option value="#pg1">Page 1</option>
+		        <option value="#pg2">Page 2</option>
+		        <option value="#pg3" selected="selected">Page 3</option>
+		    </select>
+		    <script>
+		    $(function(){
+		        // bind change event to select
+		        $('#select-custom-3').bind('change', function () {
+		            var url = $(this).val(); // get selected value
+		            if (url) { // require a URL
+		            	$.mobile.changePage( url, { transition: "slide", changeHash: false });
+		            }
+		        	return false;
+		     	});
+		    });
+			</script>
+		</div>
+        <div data-role="content" data-theme="a">
+        	<button class="show-page-loading-msg" data-textonly="false" data-textvisible="false" data-msgtext="" data-inline="true">Loader</button>
+        	<h2>Materi Yang Sudah Diajarkan di PPM:</h2>
+        	<p>1. Belajar mengenai Git.</p>
+        	<p>2. Belajar mengenai jQueryMobile.</p>
+        	<p>3. Belajar mengenai angularJs.</p>
+
+        	<div data-role="panel" id="mypanel" data-position="left" data-display="push">
+			    <p>Nama : Sie Ivan</p>
+			    <p>NRP : 264160479</p>
+			    <a href="#my-header" data-rel="close">Close Panel</a>
+			</div>
+			<a href=#mypanel>Open Panel</a>
+
+			<table data-role="table" id="movie-table" data-mode="reflow" class="ui-responsive">
+		    <thead>
+		    <tr>
+		      <th data-priority="1">Rank</th>
+		      <th data-priority="persist">Movie Title</th>
+		      <th data-priority="2">Year</th>
+		      <th data-priority="3"><abbr title="Rotten Tomato Rating">Rating</abbr></th>
+		      <th data-priority="4">Reviews</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <th>1</th>
+		      <td><a href="http://en.wikipedia.org/wiki/Citizen_Kane" data-rel="external">Citizen Kane</a></td>
+		      <td>1941</td>
+		      <td>100%</td>
+		      <td>74</td>
+		    </tr>
+		    <tr>
+		      <th>2</th>
+		      <td><a href="http://en.wikipedia.org/wiki/Casablanca_(film)" data-rel="external">Casablanca</a></td>
+		      <td>1942</td>
+		      <td>97%</td>
+		      <td>64</td>
+		    </tr>
+		    <tr>
+		      <th>3</th>
+		      <td><a href="http://en.wikipedia.org/wiki/The_Godfather" data-rel="external">The Godfather</a></td>
+		      <td>1972</td>
+		      <td>97%</td>
+		      <td>87</td>
+		    </tr>
+		    <tr>
+		      <th>4</th>
+		      <td><a href="http://en.wikipedia.org/wiki/Gone_with_the_Wind_(film)" data-rel="external">Gone with the Wind</a></td>
+		      <td>1939</td>
+		      <td>96%</td>
+		      <td>87</td>
+		    </tr>
+		    <tr>
+		      <th>5</th>
+		      <td><a href="http://en.wikipedia.org/wiki/Lawrence_of_Arabia_(film)" data-rel="external">Lawrence of Arabia</a></td>
+		      <td>1962</td>
+		      <td>94%</td>
+		      <td>87</td>
+		    </tr>
+		    <tr>
+		      <th>6</th>
+		      <td><a href="http://en.wikipedia.org/wiki/Dr._Strangelove" data-rel="external">Dr. Strangelove Or How I Learned to Stop Worrying and Love the Bomb</a></td>
+		      <td>1964</td>
+		      <td>92%</td>
+		      <td>74</td>
+		    </tr>
+		    <tr>
+		      <th>7</th>
+		      <td><a href="http://en.wikipedia.org/wiki/The_Graduate" data-rel="external">The Graduate</a></td>
+		      <td>1967</td>
+		      <td>91%</td>
+		      <td>122</td>
+		    </tr>
+		    <tr>
+		      <th>8</th>
+		      <td><a href="http://en.wikipedia.org/wiki/The_Wizard_of_Oz_(1939_film)" data-rel="external">The Wizard of Oz</a></td>
+		      <td>1939</td>
+		      <td>90%</td>
+		      <td>72</td>
+		    </tr>
+		    <tr>
+		      <th>9</th>
+		      <td><a href="http://en.wikipedia.org/wiki/Singin%27_in_the_Rain" data-rel="external">Singin' in the Rain</a></td>
+		      <td>1952</td>
+		      <td>89%</td>
+		      <td>85</td>
+		    </tr>
+		    <tr>
+		      <th>10</th>
+		      <td class="title"><a href="http://en.wikipedia.org/wiki/Inception" data-rel="external">Inception</a></td>
+		      <td>2010</td>
+		      <td>84%</td>
+		      <td>78</td>
+		    </tr>
+		  </tbody>
+		</table>
+	
+<div class="rwd-example">
+    <!-- Lead story block -->
+    <div class="ui-block-a">
+        <div class="ui-body ui-body-d">
+            <h2>Apple schedules 'iPad Mini' event for October 23</h2>
+            <p>One of the worst-kept secrets in tech has been confirmed: Apple will hold an event October 23 in San Jose, California, at which the company is widely expected to unveil a smaller, cheaper version of its popular iPad called "Mini".</p>
+        </div>
+    </div>
+    <!-- secondary story block #1 -->
+    <div class="ui-block-b">
+        <div class="ui-body ui-body-d">
+            <h4>Microsoft Surface tablet goes on sale for $499</h4>
+            <p>The Microsoft Surface tablet picture has come into focus. The Redmond giant filled in the blanks on the new tablet's availability and specs.</p>
+        </div>
+    </div>
+    <!-- secondary story block #2 -->
+    <div class="ui-block-c">
+        <div class="ui-body ui-body-d">
+            <h4>AOL unveils Alto, an email service that syncs 5 accounts</h4>
+            <p>AOL, struggling to shed its outdated image, is reimagining one of the most visibly aging parts of its platform: Its email service. </p>
+        </div>
+    </div>
+</div><!-- /rwd-example -->
+
+
+    	</div>
+    </div>
+
+
+
+</body>
+</html>
